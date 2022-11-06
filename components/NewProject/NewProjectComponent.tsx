@@ -1,12 +1,16 @@
-import { Box, Group, Title, TextInput, FileInput, Text} from '@mantine/core';
+import { Grid, Group, Title, TextInput, FileInput, Text, Paper} from '@mantine/core';
 import { IconUpload } from '@tabler/icons';
+import { DropzoneButton } from './Dropzone';
 
 export function NewProjectComponent() {
   return (
-    <div style={{width:"800px", height:"400px"}}>
+    // <div style={{width:"50vw", height:"85vh"}}>
+    <Paper p={"md"}>
+    
       <Group position="center" style={{marginBottom:"50px"}}>
-        <Title order={1} style={{fontFamily:'cairo', fontWeight:200, color:'#0E76D7'}}>Create new Project</Title>
+        <Title order={1} style={{fontFamily:'Cairo', fontWeight:200, color:'#0E76D7'}}>Create new Project</Title>
       </Group>
+      <Grid>
       <Group position="center" style={{marginBottom:"50px"}}>
 
         <Text weight={500} style={{fontFamily:'Cairo', marginRight:"20px"}}>
@@ -37,12 +41,14 @@ export function NewProjectComponent() {
           Dataset
         </Text>
 
-        <FileInput
+        {/* <FileInput
           placeholder="Upload Dataset"
           aria-label="Upload Dataset"
           variant="filled"
           icon={<IconUpload size={14} />}
-        />
+        /> */}
+
+        <DropzoneButton/>
 
       </Group>
 
@@ -63,8 +69,8 @@ export function NewProjectComponent() {
         />
 
       </Group>
-      
-    </div>
-    
+      </Grid>     
+    {/* </div> */}
+    </Paper>
   );
 }
