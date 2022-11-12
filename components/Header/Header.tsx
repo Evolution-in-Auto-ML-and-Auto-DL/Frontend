@@ -103,7 +103,7 @@ export function HeaderMegaMenu() {
   const isLoadingUser = status === 'loading';
 
   return (
-    <Box pb={120}>
+    <Box pb={40}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: '100%' }}>
           <Title order={3}>Athena</Title>

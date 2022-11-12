@@ -10,7 +10,7 @@ export function NewProjectComponent() {
       <Group position="center" style={{marginBottom:"50px"}}>
         <Title order={1} style={{fontFamily:'Cairo', fontWeight:200, color:'#0E76D7'}}>Create new Project</Title>
       </Group>
-      <Grid>
+
       <Group position="center" style={{marginBottom:"50px"}}>
 
         <Text weight={500} style={{fontFamily:'Cairo', marginRight:"20px"}}>
@@ -52,7 +52,7 @@ export function NewProjectComponent() {
 
       </Group>
 
-      <Text weight={500} style={{fontFamily:'Cairo', marginTop:"20px", marginBottom:"20px", marginLeft:"100px"}}>
+      <Text weight={500} style={{fontFamily:'Cairo', marginTop:"20px", marginBottom:"20px", marginLeft:"450px"}}>
           or
       </Text>
 
@@ -68,8 +68,7 @@ export function NewProjectComponent() {
           variant="filled"
         />
 
-      </Group>
-      </Grid>     
+      </Group>   
     {/* </div> */}
     </Paper>
   );
