@@ -6,12 +6,11 @@ import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 import { ModalsProvider } from '@mantine/modals';
-import { getSession, GetSessionParams, SessionProvider as AuthProvider } from 'next-auth/react';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const {
     Component,
-    pageProps: { session, ...pageProps },
+    pageProps,
   } = props;
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
 
@@ -29,17 +28,15 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         <link rel="shortcut icon" href="/lightning.svg" />
       </Head>
 
-      <AuthProvider session={session}>
-        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-          <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-            <ModalsProvider>
-              <NotificationsProvider>
-                <Component {...pageProps} />
-              </NotificationsProvider>
-            </ModalsProvider>
-          </MantineProvider>
-        </ColorSchemeProvider>
-      </AuthProvider>
+      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+        <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+          <ModalsProvider>
+            <NotificationsProvider>
+              <Component {...pageProps} />
+            </NotificationsProvider>
+          </ModalsProvider>
+        </MantineProvider>
+      </ColorSchemeProvider>
     </>
   );
 }
@@ -47,10 +44,3 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
 App.getInitialProps = ({ ctx }: { ctx: GetServerSidePropsContext }) => ({
   colorScheme: getCookie('mantine-color-scheme', ctx) || 'light',
 });
-
-export async function getServerSideProps(ctx: GetSessionParams) {
-  const session = await getSession(ctx);
-  return ({
-    props: { session },
-  });
-}

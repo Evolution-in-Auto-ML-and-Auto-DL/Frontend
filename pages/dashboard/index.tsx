@@ -10,7 +10,7 @@ import { ModalsProvider } from '@mantine/modals';
 import { openConfirmModal } from '@mantine/modals';
 import { NewProjectComponent } from '../../components/NewProject/NewProjectComponent';
 import { Modal, Group } from '@mantine/core';
-import { getSession, GetSessionParams } from 'next-auth/react';
+// import { getSession, GetSessionParams } from 'next-auth/react';
 
 function Dashboard(){
   const [Projects, setProjects] = useState([1, 2, 3, 4, 5, 6]);
@@ -84,9 +84,9 @@ function Dashboard(){
 
 export default Dashboard;
 
-export async function getServerSideProps(ctx: GetSessionParams) {
-  const session = await getSession(ctx);
-  return ({
-    props: { session },
-  });
-}
+// export async function getServerSideProps(ctx: GetSessionParams) {
+//   const session = await getSession(ctx);
+//   return ({
+//     props: { session },
+//   });
+// }

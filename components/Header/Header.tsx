@@ -29,8 +29,6 @@ import {
   IconCoin,
   IconChevronDown,
 } from '@tabler/icons';
-import { useSession } from 'next-auth/react';
-
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 
 const useStyles = createStyles((theme) => ({
@@ -98,9 +96,11 @@ export function HeaderMegaMenu() {
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const { classes, theme } = useStyles();
 
-  const { data: session, status } = useSession();
-  const user = session?.user;
-  const isLoadingUser = status === 'loading';
+  const user = {
+    "name": "Athena",
+    "image": "https://cdn-icons-png.flaticon.com/512/1483/1483105.png",
+    "image2": "https://cdn-icons-png.flaticon.com/512/1430/1430162.png",
+  };
 
   return (
     <Box pb={40}>
@@ -127,13 +127,13 @@ export function HeaderMegaMenu() {
           {user ? (
           <>
             <Group className={classes.hiddenMobile}>
+            <Text>{user.name}</Text>
               {user?.image ? (<Image
-                src={user?.image}
+                src={user?.image2}
                 radius="md"
                 width={40}
                 height={40}
               />) : (<>Image Placeholder</>)}
-              <Text>{user.name}</Text>
               <ColorSchemeToggle />
             </Group>
           </>
