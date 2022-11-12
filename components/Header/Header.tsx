@@ -127,7 +127,7 @@ export function HeaderMegaMenu() {
           {user ? (
           <>
             <Group className={classes.hiddenMobile}>
-            <Text>{user.name}</Text>
+            <Button compact variant='light' component='a' href='/dashboard' children={user.name}/>
               {user?.image ? (<Image
                 src={user?.image2}
                 radius="md"

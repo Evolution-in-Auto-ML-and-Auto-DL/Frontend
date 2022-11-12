@@ -10,7 +10,6 @@ import { ModalsProvider } from '@mantine/modals';
 import { openConfirmModal } from '@mantine/modals';
 import { Section, sectionProps } from '../../components/Section/SectionComponent';
 import { Modal, Group } from '@mantine/core';
-import { getSession, GetSessionParams } from 'next-auth/react';
 import * as React from 'react';
 
 function Project(){
@@ -53,10 +52,3 @@ function Project(){
 }
 
 export default Project;
-
-export async function getServerSideProps(ctx: GetSessionParams) {
-    const session = await getSession(ctx);
-    return ({
-      props: { session },
-    });
-  }

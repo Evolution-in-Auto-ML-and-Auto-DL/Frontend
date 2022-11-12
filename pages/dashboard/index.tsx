@@ -7,23 +7,22 @@ import { Title } from '@mantine/core';
 import { Button } from '@mantine/core';
 import { Text } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
-import { openConfirmModal } from '@mantine/modals';
+import { openModal } from '@mantine/modals';
 import { NewProjectComponent } from '../../components/NewProject/NewProjectComponent';
 import { Modal, Group } from '@mantine/core';
-// import { getSession, GetSessionParams } from 'next-auth/react';
 
-function Dashboard(){
+function Dashboard() {
   const [Projects, setProjects] = useState([1, 2, 3, 4, 5, 6]);
   const [opened, setOpened] = useState(false);
 
 
-    const openModal = () => openConfirmModal({
+    const openNewModal = () => openModal({
       children: (
         <NewProjectComponent />
       ),
-      labels: { confirm: 'Confirm', cancel: 'Cancel' },
-      onCancel: () => console.log('Cancel'),
-      onConfirm: () => console.log('Confirmed'),
+      // labels: { confirm: 'Confirm', cancel: 'Cancel' },
+      // onCancel: () => console.log('Cancel'),
+      // onConfirm: () => console.log('Confirmed'),
       centered:true,
       size:"auto",
       transition:'scale',
@@ -35,18 +34,10 @@ function Dashboard(){
   return(
     <Container size="xl">
 
-      <Modal
-          opened={opened}
-          onClose={() => setOpened(false)}
-          title="Introduce yourself!"
-        >
-          <NewProjectComponent />
-      </Modal>
-
       <Title order={1} style={{textAlign:'center', marginBottom:"20px", fontFamily:"cairo", fontWeight:'normal'}}>Dashboard</Title>
 
       <Container size="xs" style={{marginBottom:"40px", marginTop:"50px"}}>
-        <Button onClick={openModal} style={{fontFamily:"cairo", marginLeft:"80px", marginRight:"120px", fontWeight:500}}>New Project</Button>
+        <Button onClick={openNewModal} style={{fontFamily:"cairo", marginLeft:"80px", marginRight:"120px", fontWeight:500}}>New Project</Button>
         <Button style={{fontFamily:"cairo", fontWeight:500}}>Gallery</Button>
       </Container>
 
@@ -83,10 +74,3 @@ function Dashboard(){
   }
 
 export default Dashboard;
-
-// export async function getServerSideProps(ctx: GetSessionParams) {
-//   const session = await getSession(ctx);
-//   return ({
-//     props: { session },
-//   });
-// }
