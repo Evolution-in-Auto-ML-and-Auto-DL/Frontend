@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useMemo } from "react";
+import { useRef, useState, useCallback, useMemo } from 'react';
 import { Container } from '@mantine/core';
 import { Grid } from '@mantine/core';
 import { Chip } from '@mantine/core';
@@ -11,66 +11,120 @@ import { openModal } from '@mantine/modals';
 import { NewProjectComponent } from '../../components/NewProject/NewProjectComponent';
 import { Modal, Group } from '@mantine/core';
 
-function Dashboard() {
+function Dashboard({ projects }) {
   const [Projects, setProjects] = useState([1, 2, 3, 4, 5, 6]);
   const [opened, setOpened] = useState(false);
 
-
-    const openNewModal = () => openModal({
-      children: (
-        <NewProjectComponent />
-      ),
+  const openNewModal = () =>
+    openModal({
+      children: <NewProjectComponent />,
       // labels: { confirm: 'Confirm', cancel: 'Cancel' },
       // onCancel: () => console.log('Cancel'),
       // onConfirm: () => console.log('Confirmed'),
-      centered:true,
-      size:"auto",
-      transition:'scale',
-      exitTransitionDuration:100,
+      centered: true,
+      size: 'auto',
+      transition: 'scale',
+      exitTransitionDuration: 100,
     });
 
+  console.log('Projects', projects);
 
-  
-  return(
+  return (
     <Container size="xl">
+      <Title
+        order={1}
+        style={{
+          textAlign: 'center',
+          marginBottom: '20px',
+          fontFamily: 'cairo',
+          fontWeight: 'normal',
+        }}
+      >
+        Dashboard
+      </Title>
 
-      <Title order={1} style={{textAlign:'center', marginBottom:"20px", fontFamily:"cairo", fontWeight:'normal'}}>Dashboard</Title>
-
-      <Container size="xs" style={{marginBottom:"40px", marginTop:"50px"}}>
-        <Button onClick={openNewModal} style={{fontFamily:"cairo", marginLeft:"80px", marginRight:"120px", fontWeight:500}}>New Project</Button>
-        <Button style={{fontFamily:"cairo", fontWeight:500}}>Gallery</Button>
+      <Container size="xs" style={{ marginBottom: '40px', marginTop: '50px' }}>
+        <Button
+          onClick={openNewModal}
+          style={{ fontFamily: 'cairo', marginLeft: '80px', marginRight: '120px', fontWeight: 500 }}
+        >
+          New Project
+        </Button>
+        <Button style={{ fontFamily: 'cairo', fontWeight: 500 }}>Gallery</Button>
       </Container>
 
-      <Grid gutter="xl" >
-        {Projects.map((item) => (
-        <Grid.Col span={4} >
-          <Box
-            sx={(theme) => ({
-              backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[3],
-              textAlign: 'left',
-              padding: theme.spacing.xl,
-              borderRadius: theme.radius.md,
-              cursor: 'pointer',
-              minHeight: 150,
-              fontFamily: "cairo",
-              fontWeight: 530,
-              fontSize: "20px",
+      {projects.length > 0 ? (
+         <Grid gutter="xl">
+         {projects.map((item) => (
+           <Grid.Col span={4}>
+             <Box
+               sx={(theme) => ({
+                 backgroundColor:
+                   theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[3],
+                 textAlign: 'left',
+                 padding: theme.spacing.xl,
+                 borderRadius: theme.radius.md,
+                 cursor: 'pointer',
+                 minHeight: 150,
+                 fontFamily: 'cairo',
+                 fontWeight: 530,
+                 fontSize: '20px',
+ 
+                 '&:hover': {
+                   backgroundColor:
+                     theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
+                 },
+               })}
+             >
+               Project {item.id} - {item.name}
+             </Box>
+           </Grid.Col>
+         ))}
+       </Grid>
+      ) : (
+        <Grid gutter="xl">
+          {Projects.map((item) => (
+            <Grid.Col span={4}>
+              <Box
+                sx={(theme) => ({
+                  backgroundColor:
+                    theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[3],
+                  textAlign: 'left',
+                  padding: theme.spacing.xl,
+                  borderRadius: theme.radius.md,
+                  cursor: 'pointer',
+                  minHeight: 150,
+                  fontFamily: 'cairo',
+                  fontWeight: 530,
+                  fontSize: '20px',
 
-              '&:hover': {
-                backgroundColor:
-                  theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
-              },
-            })}
-          >
-            Project {item}- name
-          </Box>
-
-        </Grid.Col>))}
-      </Grid>
-
+                  '&:hover': {
+                    backgroundColor:
+                      theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
+                  },
+                })}
+              >
+                Project {item}
+              </Box>
+            </Grid.Col>
+          ))}
+        </Grid>
+      )}
     </Container>
-  )
-
-  }
+  );
+}
 
 export default Dashboard;
+
+export async function getStaticProps() {
+  const res = await fetch('http://194.195.119.85:8000/projects', {
+    method: 'GET',
+  });
+  const projects = await res.json();
+
+  return {
+    props: {
+      projects,
+    },
+  };
+}

@@ -27,6 +27,7 @@ export function NewProjectComponent() {
       body: formData
     })
     closeAllModals();
+    window.location.reload();
   };
 
   return (
