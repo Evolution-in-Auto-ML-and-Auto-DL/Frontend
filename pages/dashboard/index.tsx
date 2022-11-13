@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback, useMemo } from 'react';
-import { Container } from '@mantine/core';
+import { Container, Stack } from '@mantine/core';
 import { Grid } from '@mantine/core';
 import { Chip } from '@mantine/core';
 import { Box } from '@mantine/core';
@@ -11,9 +11,11 @@ import { openModal } from '@mantine/modals';
 import { NewProjectComponent } from '../../components/NewProject/NewProjectComponent';
 import { Modal, Group } from '@mantine/core';
 
-function Dashboard({ projects }) {
+function Dashboard({ props }) {
   const [Projects, setProjects] = useState([1, 2, 3, 4, 5, 6]);
   const [opened, setOpened] = useState(false);
+
+  const projects = props.projects
 
   const openNewModal = () =>
     openModal({
@@ -53,7 +55,7 @@ function Dashboard({ projects }) {
         <Button style={{ fontFamily: 'cairo', fontWeight: 500 }}>Gallery</Button>
       </Container>
 
-      {projects.length > 0 ? (
+      {projects?.length > 0 ? (
          <Grid gutter="xl">
          {projects.map((item) => (
            <Grid.Col span={4}>
@@ -76,7 +78,12 @@ function Dashboard({ projects }) {
                  },
                })}
              >
-               Project {item.id} - {item.name}
+               <Stack>
+                <Text>Project {item.id} - {item.name}</Text>
+                <Text fz="md">{item.description}</Text>
+                <Button component="a" href={"/project/"+item.id}>Open Project</Button>
+               </Stack>
+               
              </Box>
            </Grid.Col>
          ))}
