@@ -92,7 +92,7 @@ export function NewProjectComponent() {
         />
       </Group>
       <Group position="right">
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Create</Button>
         <Button onClick={closeAllModals}>Close</Button>
       </Group>
       </form>
