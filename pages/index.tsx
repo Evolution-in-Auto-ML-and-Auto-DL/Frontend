@@ -11,7 +11,7 @@ export default function HomePage({projects}) {
   );
   }
 
-  export async function getStaticProps() {
+  export async function getServerSideProps() {
     const res = await fetch('http://194.195.119.85:8000/projects', {
       method: 'GET',
     });
