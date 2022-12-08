@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback, useMemo } from 'react';
-import { Container, Stack } from '@mantine/core';
+import { Container, Stack , Pagination} from '@mantine/core';
 import { Grid } from '@mantine/core';
-import { Chip } from '@mantine/core';
+import { Space } from '@mantine/core';
 import { Box } from '@mantine/core';
 import { Title } from '@mantine/core';
 import { Button } from '@mantine/core';
@@ -14,8 +14,12 @@ import { Modal, Group } from '@mantine/core';
 function Dashboard({ props }) {
   const [Projects, setProjects] = useState([1, 2, 3, 4, 5, 6]);
   const [opened, setOpened] = useState(false);
+  
 
   const projects = props.projects
+
+  const [activePage, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState((projects.length / 6) + 1);
 
   const openNewModal = () =>
     openModal({
@@ -57,7 +61,7 @@ function Dashboard({ props }) {
 
       {projects?.length > 0 ? (
          <Grid gutter="xl">
-         {projects.map((item) => (
+         {projects.slice((activePage - 1) * 6, activePage * 6 ).map((item) => (
            <Grid.Col span={4}>
              <Box
                sx={(theme) => ({
@@ -90,7 +94,7 @@ function Dashboard({ props }) {
        </Grid>
       ) : (
         <Grid gutter="xl">
-          {Projects.map((item) => (
+          {Projects.slice(activePage * 6, activePage * 6 + 6).map((item) => (
             <Grid.Col span={4}>
               <Box
                 sx={(theme) => ({
@@ -117,6 +121,12 @@ function Dashboard({ props }) {
           ))}
         </Grid>
       )}
+
+      <Space h={'xl'}></Space>
+
+      <Group position='center'>
+        <Pagination page={activePage} onChange={setPage} total={totalPages} />
+      </Group>
     </Container>
   );
 }
@@ -124,7 +134,7 @@ function Dashboard({ props }) {
 export default Dashboard;
 
 export async function getStaticProps() {
-  const res = await fetch('http://194.195.119.85:8000/projects', {
+  const res = await fetch('http://172.105.63.82:8000/projects', {
     method: 'GET',
   });
   const projects = await res.json();

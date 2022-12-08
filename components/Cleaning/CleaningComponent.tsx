@@ -1,4 +1,4 @@
-import { Group, Button, Box, Grid, Text, Select, Space, Divider } from '@mantine/core';
+import { Group, Button, Box, Grid, Text, Select, Space, Divider, Title } from '@mantine/core';
 import { useEffect, useState} from 'react';
 import { useForm } from '@mantine/form';
 import { closeAllModals } from '@mantine/modals';
@@ -13,16 +13,18 @@ export interface cleaningProps {
 
 export function CleaningComponent({loc, nextStep}: cleaningProps) {
 
+    const [ fetchedData, setFetchedData] = useState(false);
+
     const [categorical, setCategorical] = useState<string[]>([]);
     const [numerical, setNumerical] = useState<string[]>([]);
 
     const [methods, setMethods] = useState<string[]>([]);
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         async function sendReq(){
-        const url = 'http://194.195.119.85:8000/cleaning_info';
+        const url = 'http://172.105.63.82:8000/cleaning_info';
     
         const temp = {
           url: loc
@@ -44,12 +46,13 @@ export function CleaningComponent({loc, nextStep}: cleaningProps) {
             setMethods(t);
             setCategorical(data[0]);
             setNumerical(data[1]);
+            setFetchedData(true);
         })};
         sendReq()}, []);
     
     async function clean(){
         setLoading(true);
-        const url = 'http://194.195.119.85:8000/cleaning';
+        const url = 'http://172.105.63.82:8000/cleaning';
 
         let list = [];
 
@@ -89,6 +92,7 @@ export function CleaningComponent({loc, nextStep}: cleaningProps) {
         borderRadius: theme.radius.md,
         })}
     >
+        { (categorical.length + numerical.length != 0) ? (
         <>
             <Grid >
                 <Grid.Col span={6}>
@@ -130,6 +134,12 @@ export function CleaningComponent({loc, nextStep}: cleaningProps) {
                         aria-label="Your favorite framework/library"
                         placeholder="Pick one"
                         value={methods[index]}
+                        onChange={(newVal) => {
+                            console.log('here');
+                            let newArr = [...methods];
+                            newArr[index] = newVal;
+                            setMethods(newArr);
+                        }}
                         data={[
                             { value: 'mode', label: 'Mode' },
                             { value: 'ffill', label: 'Forward Fill' },
@@ -160,6 +170,11 @@ export function CleaningComponent({loc, nextStep}: cleaningProps) {
                         aria-label="Your favorite framework/library"
                         placeholder="Pick one"
                         value={methods[index + categorical.length]}
+                        onChange={(newVal) => {
+                            let newArr = [...methods];
+                            newArr[index + categorical.length] = newVal;
+                            setMethods(newArr);
+                        }}
                         data={[
                             { value: 'mean', label: 'Mean' },
                             { value: 'median', label: 'Median' },
@@ -173,6 +188,16 @@ export function CleaningComponent({loc, nextStep}: cleaningProps) {
                 </Grid>
             ))}
         </>
+        ) : ( 
+            <>
+            <Group position='center'>
+            <Title order={3}> No Columns with null values in the data set</Title>
+            </Group>
+            <Group position='center'>
+            <Text>Go on to the next step </Text>
+            </Group>
+            </>
+        )}
         <Group position='right'>
             <Button onClick={clean} loading={loading}>
                 Run

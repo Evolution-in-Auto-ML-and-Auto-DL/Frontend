@@ -78,7 +78,7 @@ export async function getServerSideProps(context) {
   // const router = useRouter()
   const { id } = context.query
   
-  const res = await fetch('http://194.195.119.85:8000/project/'+id, {
+  const res = await fetch('http://172.105.63.82:8000/project/'+id, {
     method: 'GET',
   });
   const projects = await res.json();

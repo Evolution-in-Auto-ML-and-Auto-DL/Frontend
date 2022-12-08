@@ -19,7 +19,7 @@ export function ModelComponent({loc, nextStep}: cleaningProps) {
 
     useEffect(() => {
         async function sendReq(){
-        const url = 'http://194.195.119.85:8000/evalml_info';
+        const url = 'http://172.105.63.82:8000/evalml_info';
     
         const temp = {
           url: loc,
@@ -39,7 +39,7 @@ export function ModelComponent({loc, nextStep}: cleaningProps) {
     
       async function build(){
         setLoading(true);
-        const url = 'http://194.195.119.85:8000/evalml_run';
+        const url = 'http://172.105.63.82:8000/evalml_run';
         const model_loc = '/home/athena/Desktop/ATHENA/STORAGE/CurrentModel';
 
 

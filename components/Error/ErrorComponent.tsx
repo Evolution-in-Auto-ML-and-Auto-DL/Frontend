@@ -21,10 +21,15 @@ export function ErrorComponent({loc, nextStep}: errorrops) {
 
     useEffect(() => {
         async function sendReq(){
-        const url = 'http://194.195.119.85:8000/fetch_error_metrics';
-    
-    
-        await fetch(url, {method:'GET', mode:'cors'})
+        const url = 'http://172.105.63.82:8000/fetch_error_metrics';
+
+        const temp = {
+            url: loc
+        }
+
+        await fetch(url, {method:'POST', mode:'cors', headers: {
+            "Content-type": "application/json"
+          }, body:JSON.stringify(temp)})
         .then(function(response) {
           return response.json();
         })
@@ -37,7 +42,7 @@ export function ErrorComponent({loc, nextStep}: errorrops) {
     async function done(){
         setLoading(true);
 
-        const url = 'http://194.195.119.85:8000/error_metrics';
+        const url = 'http://172.105.63.82:8000/error_metrics';
         const model_loc = '/home/athena/Desktop/ATHENA/STORAGE/CurrentModel';
 
 
@@ -68,7 +73,6 @@ export function ErrorComponent({loc, nextStep}: errorrops) {
             borderRadius: theme.radius.md,
             })}
         >
-
 
         <>    
         <MultiSelect
