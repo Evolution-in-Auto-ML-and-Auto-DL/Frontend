@@ -18,7 +18,7 @@ export function ReportsComponent() {
 
     useEffect(() => {
         async function sendReq(){
-        const url = 'http://172.105.63.82:8000/reports';
+        const url = 'http://172.31.8.56/reports';
     
     
         await fetch(url, {method:'GET', mode:'cors'})

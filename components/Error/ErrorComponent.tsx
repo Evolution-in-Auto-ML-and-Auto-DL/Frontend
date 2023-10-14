@@ -21,7 +21,7 @@ export function ErrorComponent({loc, nextStep}: errorrops) {
 
     useEffect(() => {
         async function sendReq(){
-        const url = 'http://172.105.63.82:8000/fetch_error_metrics';
+        const url = 'http://172.31.8.56/fetch_error_metrics';
 
         const temp = {
             url: loc
@@ -42,7 +42,7 @@ export function ErrorComponent({loc, nextStep}: errorrops) {
     async function done(){
         setLoading(true);
 
-        const url = 'http://172.105.63.82:8000/error_metrics';
+        const url = 'http://172.31.8.56/error_metrics';
         const model_loc = '/home/athena/Desktop/ATHENA/STORAGE/CurrentModel';
 
 

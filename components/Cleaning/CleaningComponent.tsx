@@ -24,7 +24,7 @@ export function CleaningComponent({loc, nextStep}: cleaningProps) {
 
     useEffect(() => {
         async function sendReq(){
-        const url = 'http://172.105.63.82:8000/cleaning_info';
+        const url = 'http://172.31.8.56/cleaning_info';
     
         const temp = {
           url: loc
@@ -52,7 +52,7 @@ export function CleaningComponent({loc, nextStep}: cleaningProps) {
     
     async function clean(){
         setLoading(true);
-        const url = 'http://172.105.63.82:8000/cleaning';
+        const url = 'http://172.31.8.56/cleaning';
 
         let list = [];
 

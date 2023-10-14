@@ -15,14 +15,14 @@ export function NewProjectComponent() {
   });
 
   const formSubmit = async (values) => {
-    await axios.post('http://172.105.63.82:8000/upload_dataset_details', {
+    await axios.post('http://172.31.8.56/upload_dataset_details', {
       name: values.name,
       description: values.description,
       dataset: values.dataset.name,
     });
     const formData = new FormData();
     formData.append('file',values.dataset,values.dataset.name);
-    fetch('http://172.105.63.82:8000/upload_dataset', {
+    fetch('http://172.31.8.56/upload_dataset', {
       method: "POST",
       body: formData
     })
